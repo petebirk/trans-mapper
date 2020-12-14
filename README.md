@@ -1,28 +1,31 @@
 Transaction Mapper
 ==================
 
-Once you download this repo, you can build and run the web app using the following Maven command from the root directory:  
+The following commands will get the server up and running quickly:  
+    
+    git clone https://github.com/petebirk/trans-mapper.git
+    cd trans-mapper 
+    mvn clean install tomcat7:run
 
-    `mvn clean install tomcat7:run`
+You can get a simple Postman Collection for the three APIs below.  This has sample data ready to connect and run, including the userid/password for accessing the API.
 
-All of the testcases will run by default when you run the above.  To avoid running them, add `-DskipTests` to the above command.
+    trans-mapper/src/main/resources/TransactionMapper.postman_collection.json 
 
+When running 'mvn clean install tomcat7:run', all of the testcases will run by default.  To avoid running them, add `-DskipTests` to the mvn command.
 
-You can view the OpenAPI Swagger HTML Documentation here:  
+Once running, you can view the OpenAPI Swagger HTML Documentation for the API here:  
 
-    `http://localhost:9090/trans-mapper/index.html`
+    http://localhost:9090/trans-mapper/index.html
 
-You can view the OpenAPI Swagger JSON file here:  
+You can also review the OpenAPI Swagger JSON file here:  
 
-    `trans-mapper/src/main/resources/pbirk007-TransactionMapper-0.0.1-resolved.json`
+    trans-mapper/src/main/resources/pbirk007-TransactionMapper-0.0.1-resolved.json
 
-This will start the API in Tomcat and you can access the three endpoints from these URLs:  
+Once the server is running, you can access the three endpoints for the project here:
 
-- 'POST http://localhost:9090/trans-mapper/api/v1/transactions'
-- 'POST http://localhost:9090/trans-mapper/api/v1/transactions/type/{type}'
-- 'POST http://localhost:9090/trans-mapper/api/v1/transactions/type/{type}/amount'
-
-I created a Postman Collection and put it in `trans-mapper/src/main/resources/TransactionMapper.postman_collection.json`.  This has sample data ready to run, including the userid/password for accessing the API.
+- POST http://localhost:9090/trans-mapper/api/v1/transactions
+- POST http://localhost:9090/trans-mapper/api/v1/transactions/type/{type}
+- POST http://localhost:9090/trans-mapper/api/v1/transactions/type/{type}/amount
 
 You will need to add a Basic Authorization header for userid=user and password=user.  I realize this is very simple security, but it demonstrates the user of Spring Security and does not drag in an OAuth provider and/or LDAP registry dependencies. 
 
