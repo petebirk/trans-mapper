@@ -1,8 +1,7 @@
 Transaction Mapper
 ==================
 
-Once you download this repo, you can build and run the web app using the following Maven command from the root directory:  
-
+The following commands will get the server up and running quickly:  
     
     git clone https://github.com/petebirk/trans-mapper.git
     cd trans-mapper 
@@ -10,7 +9,7 @@ Once you download this repo, you can build and run the web app using the followi
 
 You can get a simple Postman Collection for the three APIs below.  This has sample data ready to connect and run, including the userid/password for accessing the API.
 
-    trans-mapper/src/main/resources/TransactionMapper.postman_collection.json`.  
+    trans-mapper/src/main/resources/TransactionMapper.postman_collection.json 
 
 When running 'mvn clean install tomcat7:run', all of the testcases will run by default.  To avoid running them, add `-DskipTests` to the mvn command.
 
