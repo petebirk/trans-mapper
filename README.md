@@ -18,9 +18,9 @@ You can view the OpenAPI Swagger JSON file here:
 
 This will start the API in Tomcat and you can access the three endpoints from these URLs:  
 
-`- POST http://localhost:9090/trans-mapper/api/v1/transactions`
-`- POST http://localhost:9090/trans-mapper/api/v1/transactions/type/{type}`
-`- POST http://localhost:9090/trans-mapper/api/v1/transactions/type/{type}/amount`
+- 'POST http://localhost:9090/trans-mapper/api/v1/transactions'
+- 'POST http://localhost:9090/trans-mapper/api/v1/transactions/type/{type}'
+- 'POST http://localhost:9090/trans-mapper/api/v1/transactions/type/{type}/amount'
 
 I created a Postman Collection and put it in `trans-mapper/src/main/resources/TransactionMapper.postman_collection.json`.  This has sample data ready to run, including the userid/password for accessing the API.
 
