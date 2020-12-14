@@ -3,24 +3,28 @@ Transaction Mapper
 
 Once you download this repo, you can build and run the web app using the following Maven command from the root directory:  
 
-    `mvn clean install tomcat7:run`
+    
+    git clone https://github.com/petebirk/trans-mapper.git
+    cd trans-mapper 
+    mvn clean install tomcat7:run
+    
 
 All of the testcases will run by default when you run the above.  To avoid running them, add `-DskipTests` to the above command.
 
 
 You can view the OpenAPI Swagger HTML Documentation here:  
 
-    `http://localhost:9090/trans-mapper/index.html`
+    http://localhost:9090/trans-mapper/index.html
 
 You can view the OpenAPI Swagger JSON file here:  
 
-    `trans-mapper/src/main/resources/pbirk007-TransactionMapper-0.0.1-resolved.json`
+    trans-mapper/src/main/resources/pbirk007-TransactionMapper-0.0.1-resolved.json
 
 This will start the API in Tomcat and you can access the three endpoints from these URLs:  
 
-- 'POST http://localhost:9090/trans-mapper/api/v1/transactions'
-- 'POST http://localhost:9090/trans-mapper/api/v1/transactions/type/{type}'
-- 'POST http://localhost:9090/trans-mapper/api/v1/transactions/type/{type}/amount'
+- POST http://localhost:9090/trans-mapper/api/v1/transactions
+- POST http://localhost:9090/trans-mapper/api/v1/transactions/type/{type}
+- POST http://localhost:9090/trans-mapper/api/v1/transactions/type/{type}/amount
 
 I created a Postman Collection and put it in `trans-mapper/src/main/resources/TransactionMapper.postman_collection.json`.  This has sample data ready to run, including the userid/password for accessing the API.
 
