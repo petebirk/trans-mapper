@@ -1,0 +1,319 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Transaction Mapper",
+    "description": "This API converts transactions from OpenBank to BackBase format.  The implementation can be started by running the following Maven command.\nmvn clean install tomcat7:run\nOnce this is started, you should be able to access the API via POST to http://localhost:9090/trans-mapper/api/v1/transactions.\nA Postman collection is available in the project from /src/main/resources/TransactionMapper.postman_collection.json.  This includes the userid/password needed to access the resources.",
+    "version": "0.0.1"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:9090/trans-mapper/api/v1",
+      "description": "Development server"
+    }
+  ],
+  "security": [
+    {
+      "basic": []
+    }
+  ],
+  "paths": {
+    "/transactions": {
+      "post": {
+        "tags": [
+          "All Transactions"
+        ],
+        "summary": "Converts all transactions from OpenBank format into BackBase format, mapping specific fields from one into the other.",
+        "operationId": "transactions",
+        "requestBody": {
+          "description": "This method does not filter any of the transactions.  All transactions in the request will get mapped into the response.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/OpenBankTransaction"
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "mapped data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/BackBaseTransaction"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "bad input parameter"
+          },
+          "401": {
+            "description": "invalid credentials"
+          },
+          "500": {
+            "description": "unexpected conditions"
+          }
+        }
+      }
+    },
+    "/transactions/type/{type}": {
+      "post": {
+        "tags": [
+          "Filter Transactions by Type"
+        ],
+        "summary": "Converts just the transactions of the type specified in the path variable {type} from OpenBank format into BackBase format.  The value of {type} comes from the OpenBank field details.type.",
+        "parameters": [
+          {
+            "name": "type",
+            "in": "path",
+            "description": "type of transaction",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "This method does not filter any of the transactions.  All transactions in the request will get mapped into the response.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/OpenBankTransaction"
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "requested data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/BackBaseTransaction"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "bad input parameter"
+          },
+          "401": {
+            "description": "invalid credentials"
+          },
+          "500": {
+            "description": "unexpected conditions"
+          }
+        }
+      }
+    },
+    "/transactions/type/{type}/amount": {
+      "post": {
+        "tags": [
+          "Sum Amounts by Transaction Type"
+        ],
+        "summary": "Returns the amount summed up for each currency.  If there are multiple currencies in the input data, there will be multiple currencies in the result which the sum of each currency seen in the filtered transaction list.   The transactions considered for the summation are only those of the {type} specified.",
+        "parameters": [
+          {
+            "name": "type",
+            "in": "path",
+            "description": "type of transaction",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "A list of OpenBank transactions will be passed in.  They will be filtered by the {type} variable and then the sum of the details.value.amount attributes will be returned after processing all of the input.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/OpenBankTransaction"
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "requested data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "string"
+                  },
+                  "example": {
+                    "USD": "500.93",
+                    "GBP": "958.00"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "bad input parameter"
+          },
+          "401": {
+            "description": "invalid credentials"
+          },
+          "500": {
+            "description": "unexpected conditions"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "BackBaseTransaction": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "accountId": {
+            "type": "string"
+          },
+          "counterpartyAccount": {
+            "type": "string"
+          },
+          "counterpartyName": {
+            "type": "string"
+          },
+          "counterPartyLogoPath": {
+            "type": "string"
+          },
+          "instructedAmount": {
+            "type": "string"
+          },
+          "instructedCurrency": {
+            "type": "string"
+          },
+          "transactionAmount": {
+            "type": "string"
+          },
+          "transactionCurrency": {
+            "type": "string"
+          },
+          "transactionType": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          }
+        }
+      },
+      "OpenBankTransaction": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "this_account": {
+            "$ref": "#/components/schemas/OpenBankTransaction_this_account"
+          },
+          "other_account": {
+            "$ref": "#/components/schemas/OpenBankTransaction_other_account"
+          },
+          "details": {
+            "$ref": "#/components/schemas/OpenBankTransaction_details"
+          }
+        }
+      },
+      "OpenBankTransaction_this_account": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          }
+        }
+      },
+      "OpenBankTransaction_other_account_holder": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          }
+        }
+      },
+      "OpenBankTransaction_other_account_metadata": {
+        "type": "object",
+        "properties": {
+          "image_URL": {
+            "type": "string"
+          }
+        }
+      },
+      "OpenBankTransaction_other_account": {
+        "type": "object",
+        "properties": {
+          "number": {
+            "type": "string"
+          },
+          "holder": {
+            "$ref": "#/components/schemas/OpenBankTransaction_other_account_holder"
+          },
+          "metadata": {
+            "$ref": "#/components/schemas/OpenBankTransaction_other_account_metadata"
+          }
+        }
+      },
+      "OpenBankTransaction_details_value": {
+        "type": "object",
+        "properties": {
+          "amount": {
+            "type": "string"
+          },
+          "currency": {
+            "type": "string"
+          }
+        }
+      },
+      "OpenBankTransaction_details": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "$ref": "#/components/schemas/OpenBankTransaction_details_value"
+          },
+          "type": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "basic": {
+        "type": "http",
+        "description": "Basic Authentication",
+        "scheme": "basic"
+      }
+    }
+  }
+}
