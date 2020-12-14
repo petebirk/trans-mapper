@@ -1,22 +1,22 @@
-*Transaction Mapper*
+#Transaction Mapper#
 
-You can view the OpenAPI Swagger HTML Documentation here:  **http://localhost:9090/trans-mapper/index.html**
+You can view the OpenAPI Swagger HTML Documentation here:  `http://localhost:9090/trans-mapper/index.html`
 
-The OpenAPI Swagger JSON file is here:  **trans-mapper/src/main/resources/pbirk007-TransactionMapper-0.0.1-resolved.json**
+The OpenAPI Swagger JSON file is here:  `trans-mapper/src/main/resources/pbirk007-TransactionMapper-0.0.1-resolved.json`
 
 To build and run the system, issue the following Maven command from trans-mapper 
-root directory:  **mvn clean install tomcat7:run**
+root directory:  `mvn clean install tomcat7:run`
 
 All of the testcases will run by default when you run the above.  To avoid running them,
 add -DskipTests to the above command.
 
 This will start the API in Tomcat and you can access the three endpoints from these URLs:  
 
-**- POST http://localhost:9090/trans-mapper/api/v1/transactions**
-**- POST http://localhost:9090/trans-mapper/api/v1/transactions/type/{type}**
-**- POST http://localhost:9090/trans-mapper/api/v1/transactions/type/{type}/amount**
+`- POST http://localhost:9090/trans-mapper/api/v1/transactions`
+`- POST http://localhost:9090/trans-mapper/api/v1/transactions/type/{type}`
+`- POST http://localhost:9090/trans-mapper/api/v1/transactions/type/{type}/amount`
 
-I created a Postman Collection and put it in **trans-mapper/src/main/resources/TransactionMapper.postman_collection.json**.
+I created a Postman Collection and put it in `trans-mapper/src/main/resources/TransactionMapper.postman_collection.json`.
 This has sample data ready to run, including the userid/password for accessing the API.
 
 You will need to add a Basic Authorization header for userid=user and password=user.  I realize
@@ -28,7 +28,7 @@ performance in mind.  With control of the deserialization, I could filter, sum, 
 process so that I didn't have to process the entire list of transactions more than once.  This can 
 map 100 transactions in 15 ms (warmed up).
 
-*Capabilities:*
+##Capabilities:##
 
 - No Spring Boot dependencies are used.
 - Utilizes the Servlet Spec for the REST API controller function.
