@@ -18,6 +18,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
+/**
+ * Handles requests for transaction mapping by type.
+ * @author peterbirk
+ *
+ */
 @Api(value="/transactions")
 public class ByTypeTransactionsRequestHandler extends AbstractRequestHandler {
 	

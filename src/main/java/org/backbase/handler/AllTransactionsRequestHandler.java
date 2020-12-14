@@ -16,6 +16,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
+/**
+ * Handles requests for all mapping all transactions.
+ * @author peterbirk
+ *
+ */
 @Api(value="/transactions")
 public class AllTransactionsRequestHandler extends AbstractRequestHandler {
 
